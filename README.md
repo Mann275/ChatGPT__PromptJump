@@ -21,12 +21,6 @@ PromptJump is a lightweight Chrome extension that helps you quickly navigate thr
 4. **Browse Your Prompts** - Use the floating panel to jump between messages
 5. **Search & Navigate** - Use search bar to quickly find specific prompts
 
-## 🌐 Supported Platforms
-
-| Platform | URL | Status |
-|----------|-----|---------|
-| **ChatGPT** | chatgpt.com | ✅ Fully Supported |
-
 ## 🛠️ Installation
 
 ### Chrome Web Store (Coming Soon)
@@ -63,10 +57,6 @@ Contributions are welcome! Feel free to:
 - Submit pull requests
 - Share feedback and ideas
 
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
 ## 🛡️ Privacy Policy
 
 PromptJump operates with complete privacy:
@@ -78,12 +68,10 @@ PromptJump operates with complete privacy:
 
 ## 💡 Support
 
-- 🐛 [Report Issues](https://github.com/promptjump/issues)
-- 💬 [Feature Requests](https://github.com/promptjump/discussions)
-- ⭐ [Star on GitHub](https://github.com/promptjump/promptjump)
+- 🐛 [Report Issues](https://github.com/Mann275/ChatGPT__PromptJump/issues/new)
 
 ---
 
-**Made with ❤️ by developers, for developers**
+**Made with ❤️ by a developer, for developers**
 
 *Boost your AI chat productivity with PromptJump!*
