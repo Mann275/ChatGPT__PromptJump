@@ -99,15 +99,24 @@ function createPromptPanel() {
   headerContainer.style.paddingBottom = "8px";
   headerContainer.style.marginBottom = "12px";
   headerContainer.style.borderBottom = "1px solid #374151";
-  headerContainer.style.cursor = "move";
+  headerContainer.style.cursor = "grab";
+  headerContainer.style.transition = "transform 0.1s ease";
   
-  // Add proper hand cursor for dragging
+  // Add proper hand cursor for dragging with better animation
   headerContainer.onmousedown = () => {
     headerContainer.style.cursor = "grabbing";
+    headerContainer.style.transform = "scale(0.98)";
   };
   
   headerContainer.onmouseup = () => {
-    headerContainer.style.cursor = "move";
+    headerContainer.style.cursor = "grab";
+    headerContainer.style.transform = "scale(1)";
+  };
+  
+  headerContainer.onmouseenter = () => {
+    if (headerContainer.style.cursor !== "grabbing") {
+      headerContainer.style.cursor = "grab";
+    }
   };
   
   // Create title
@@ -220,26 +229,26 @@ function createPromptPanel() {
   contentWrapper.style.height = "280px";
   contentWrapper.style.overflowY = "auto";
   contentWrapper.style.overflowX = "hidden";
-  contentWrapper.style.background = "rgba(17, 24, 39, 0.6)";
-  contentWrapper.style.border = "1px solid #374151";
+  contentWrapper.style.background = "rgba(15, 23, 42, 0.8)";
+  contentWrapper.style.border = "1px solid rgba(51, 65, 85, 0.6)";
   contentWrapper.style.borderRadius = "6px";
-  contentWrapper.style.padding = "8px";
-  contentWrapper.style.margin = "8px 0";
-  contentWrapper.innerHTML = '<div style="margin: 0 0 8px 0; color: #9ca3af; font-size: 13px; text-align: center; padding: 15px 0;">Jump to saved prompts for this chat</div>';
+  contentWrapper.style.padding = "6px";
+  contentWrapper.style.margin = "6px 0";
+  contentWrapper.innerHTML = '<div style="margin: 0 0 4px 0; color: #94a3b8; font-size: 13px; text-align: center; padding: 8px 0;">Jump to saved prompts for this chat</div>';
   
-  // Panel styling to match image
+  // Panel styling with more transparency and blur
   div.style.position = "fixed";
   div.style.top = "20px";
   div.style.right = "20px";
   div.style.transform = "none";
-  div.style.backgroundColor = "#1f2937";
-  div.style.backdropFilter = "blur(20px)";
-  div.style.webkitBackdropFilter = "blur(20px)";
-  div.style.padding = "16px";
+  div.style.backgroundColor = "rgba(15, 23, 42, 0.7)";
+  div.style.backdropFilter = "blur(25px)";
+  div.style.webkitBackdropFilter = "blur(25px)";
+  div.style.padding = "14px";
   div.style.zIndex = "10000";
-  div.style.border = "1px solid #374151";
+  div.style.border = "1px solid rgba(51, 65, 85, 0.5)";
   div.style.borderRadius = "8px";
-  div.style.boxShadow = "0 4px 20px rgba(0,0,0,0.3)";
+  div.style.boxShadow = "0 8px 32px rgba(0,0,0,0.4)";
   div.style.maxWidth = "360px";
   div.style.minWidth = "360px";
   div.style.maxHeight = "420px";
@@ -255,14 +264,16 @@ function createPromptPanel() {
   footerContainer.style.display = "flex";
   footerContainer.style.justifyContent = "space-between";
   footerContainer.style.alignItems = "center";
-  footerContainer.style.borderTop = "1px solid rgba(255,255,255,0.05)";
-  footerContainer.style.paddingTop = "8px";
+  footerContainer.style.borderTop = "1px solid rgba(51, 65, 85, 0.2)";
+  footerContainer.style.paddingTop = "6px";
+  footerContainer.style.marginTop = "8px";
+  footerContainer.style.padding = "0";
   
   // Made with text on left
   const madeWithText = document.createElement("span");
   madeWithText.innerHTML = "Made with ❤️";
   madeWithText.style.fontSize = "11px";
-  madeWithText.style.color = "#6b7280";
+  madeWithText.style.color = "rgba(148, 163, 184, 0.8)";
   madeWithText.style.fontWeight = "400";
   
   // Report issue link on right

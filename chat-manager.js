@@ -60,8 +60,8 @@ window.__PROMPTJUMP_CORE_CONFIG = {
       const fullMappingSection = document.createElement('div');
 
       // Add a style to the fullMappingSection
-      fullMappingSection.style.overflow = 'auto';
-      fullMappingSection.style.maxHeight = '360px';
+      fullMappingSection.style.overflow = 'visible';
+      fullMappingSection.style.maxHeight = 'none';
 
       // Check if we have user messages
       if (Object.keys(userMessages).length === 0) {
@@ -69,35 +69,35 @@ window.__PROMPTJUMP_CORE_CONFIG = {
       } else {
         Object.entries(userMessages).forEach(([id, message]) => {
           const messageDiv = document.createElement('div');
-          messageDiv.style.marginBottom = '4px';
-          messageDiv.style.padding = '4px';
+          messageDiv.style.marginBottom = '1px';
+          messageDiv.style.padding = '1px';
           
           const msgButton = document.createElement('button');
           msgButton.innerHTML = `💬 ${message}`;
           msgButton.style.cursor = 'pointer';
-          msgButton.style.border = '1px solid #e5e7eb';
+          msgButton.style.border = '1px solid rgba(51, 65, 85, 0.5)';
           msgButton.style.padding = '8px 12px';
           msgButton.style.textAlign = 'left';
           msgButton.style.width = '100%';
-          msgButton.style.borderRadius = '8px';
+          msgButton.style.borderRadius = '6px';
           msgButton.style.fontSize = '13px';
           msgButton.style.display = '-webkit-box';
           msgButton.style.webkitLineClamp = '2';
           msgButton.style.webkitBoxOrient = 'vertical';
           msgButton.style.overflow = 'hidden';
           msgButton.style.textOverflow = 'ellipsis';
-          msgButton.style.background = 'rgba(138, 180, 255, 0.08)';
-          msgButton.style.color = '#e6eef3';
-          msgButton.style.border = '1px solid rgba(138, 180, 255, 0.15)';
-          msgButton.style.marginBottom = '6px';
+          msgButton.style.background = 'rgba(30, 41, 59, 0.7)';
+          msgButton.style.color = '#f1f5f9';
+          msgButton.style.border = '1px solid rgba(51, 65, 85, 0.5)';
+          msgButton.style.marginBottom = '1px';
           msgButton.style.transition = 'all 0.2s ease';
           msgButton.onmouseover = () => {
-            msgButton.style.backgroundColor = 'rgba(138, 180, 255, 0.15)';
-            msgButton.style.borderColor = 'rgba(138, 180, 255, 0.3)';
+            msgButton.style.backgroundColor = 'rgba(51, 65, 85, 0.8)';
+            msgButton.style.borderColor = 'rgba(96, 165, 250, 0.5)';
             msgButton.style.transform = 'translateY(-1px)';
           };
           msgButton.onmouseout = () => {
-            msgButton.style.backgroundColor = 'rgba(138, 180, 255, 0.08)';
+            msgButton.style.backgroundColor = 'rgba(30, 41, 59, 0.7)';
             msgButton.style.borderColor = 'rgba(138, 180, 255, 0.15)';
             msgButton.style.transform = 'translateY(0)';
           };
