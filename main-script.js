@@ -28,9 +28,10 @@ function createNavButton() {
   button.classList.add("promptjump-toggle-btn");
   button.innerHTML = "💬";
   button.style.position = "fixed";
-  button.style.bottom = "30px";
-  button.style.right = "30px";
-  button.style.padding = "10px 12px";
+  button.style.top = "50%";
+  button.style.right = "20px";
+  button.style.transform = "translateY(-50%)";
+  button.style.padding = "12px 14px";
   button.style.backgroundColor = "rgba(11, 18, 32, 0.9)";
   button.style.color = "#e6eef3";
   button.style.border = "1px solid rgba(255,255,255,0.15)";
@@ -38,7 +39,7 @@ function createNavButton() {
   button.style.cursor = "pointer";
   button.style.zIndex = "9999";
   button.style.display = "block";
-  button.style.fontSize = "18px";
+  button.style.fontSize = "22px";
   button.style.fontWeight = "500";
   button.style.boxShadow = "0 8px 24px rgba(0,0,0,0.4), 0 4px 8px rgba(0,0,0,0.2)";
   button.style.backdropFilter = "blur(16px)";
