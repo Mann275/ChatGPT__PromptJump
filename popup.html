@@ -5,40 +5,32 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ChatGPT PromptJump</title>
   <style>
-    :root{--bg:#0f172a;--card:#1e293b;--text:#f1f5f9;--muted:#64748b;--accent:#3b82f6;--border:rgba(51,65,85,0.5)}
-    body{margin:0;font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;width:340px;background:var(--bg);color:var(--text);overflow:hidden}
-    .container{padding:20px;background:linear-gradient(135deg,rgba(15,23,42,0.95),rgba(30,41,59,0.95));border-radius:16px;margin:6px;border:1px solid var(--border)}
-    .header{text-align:center;margin-bottom:20px}
-    .title{font-size:20px;font-weight:700;margin:0 0 8px;background:linear-gradient(135deg,#60a5fa,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.025em}
-    .description{font-size:14px;color:var(--muted);margin:0;line-height:1.5;text-align:center}
-    .actions{display:flex;flex-direction:column;gap:12px;margin:20px 0}
-    .btn-primary{background:linear-gradient(135deg,#3b82f6,#2563eb);border:1px solid #1d4ed8;color:white;padding:12px 20px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s ease;width:100%;box-sizing:border-box}
-    .btn-primary:hover{background:linear-gradient(135deg,#2563eb,#1d4ed8);transform:translateY(-1px);box-shadow:0 8px 25px rgba(59,130,246,0.3)}
-    .btn-secondary{background:transparent;border:1px solid var(--border);color:var(--muted);padding:10px 20px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s ease;width:100%;box-sizing:border-box}
-    .btn-secondary:hover{background:rgba(51,65,85,0.3);color:var(--text);border-color:var(--accent)}
-    .footer{text-align:center;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
-    .version{font-size:11px;color:var(--muted);opacity:0.8}
-    .icon{display:inline-block;margin-right:8px;font-size:16px}
+    body{margin:0;font-family:system-ui,sans-serif;width:300px;background:#2a2a2a;color:#fff}
+    .container{padding:15px;background:#333;border-radius:8px;margin:0;border:1px solid #444}
+    .title{font-size:16px;font-weight:normal;margin:0 0 8px;color:#fff;text-align:center}
+    .description{font-size:12px;color:#ccc;margin:0 0 15px;text-align:center}
+    .buttons{display:flex;gap:8px;margin-bottom:12px}
+    .btn{padding:8px 16px;border-radius:4px;font-size:12px;cursor:pointer;border:1px solid #555;text-align:center;flex:1;background:#444;color:#fff}
+    .btn:hover{background:#555}
+    .btn-primary{background:#0066cc;border-color:#0066cc}
+    .btn-primary:hover{background:#0052a3}
+    .footer{text-align:center;padding-top:8px;border-top:1px solid #444}
+    .bug-link{font-size:14px;color:#fff;text-decoration:none}
+    .bug-link:hover{color:#ddd}
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <h1 class="title">💬 PromptJump</h1>
-      <p class="description">Quickly navigate and jump to any prompt in your ChatGPT conversations. Never lose important messages again!</p>
-    </div>
-
-    <div class="actions">
-      <button id="open-panel" class="btn-primary">
-        <span class="icon">🚀</span>Open Panel
-      </button>
-      <button id="refresh-storage" class="btn-secondary">
-        <span class="icon">🔄</span>Refresh Data
-      </button>
+    <h1 class="title">PromptJump</h1>
+    <p class="description">Jump to any prompt in ChatGPT conversations</p>
+    
+    <div class="buttons">
+      <button id="open-panel" class="btn btn-primary">Open Panel</button>
+      <button id="refresh-storage" class="btn btn-secondary">Refresh</button>
     </div>
 
     <div class="footer">
-      <div class="version">Made with ❤️ • v1.0.0</div>
+      <a id="report-bug" class="bug-link" href="#">Report a bug 🐛</a>
     </div>
   </div>
   <script src="popup.js"></script>

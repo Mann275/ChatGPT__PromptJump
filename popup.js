@@ -2,10 +2,22 @@
 document.addEventListener('DOMContentLoaded', function() {
   const openPanelBtn = document.getElementById('open-panel');
   const refreshBtn = document.getElementById('refresh-storage');
+  const reportBugBtn = document.getElementById('report-bug');
   
   if (!openPanelBtn || !refreshBtn) {
     console.error('Popup elements not found');
     return;
+  }
+  
+  // Bug report functionality
+  if (reportBugBtn) {
+    reportBugBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      chrome.tabs.create({ 
+        url: 'https://github.com/Mann275/ChatGPT__PromptJump/issues/new' 
+      });
+      window.close();
+    });
   }
   
   openPanelBtn.addEventListener('click', async () => {

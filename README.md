@@ -1,8 +1,8 @@
 # ChatGPT PromptJump 🚀
 
-**Jump to your saved prompts instantly in AI chat sessions!**
+**Jump to your saved prompts instantly in ChatGPT conversations!**
 
-PromptJump is a lightweight Chrome extension that helps you quickly navigate through your AI chat conversations. Never lose track of important prompts and responses again!
+PromptJump is a lightweight Chrome extension that helps you quickly navigate through your ChatGPT conversations. Never lose track of important prompts and responses again!
 
 ## ✨ Key Features
 
@@ -74,4 +74,4 @@ PromptJump operates with complete privacy:
 
 **Made with ❤️ by a developer, for developers**
 
-*Boost your AI chat productivity with PromptJump!*
+*Boost your ChatGPT productivity with PromptJump!*
