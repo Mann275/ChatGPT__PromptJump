@@ -96,8 +96,8 @@ function createPromptPanel() {
   headerContainer.style.display = "flex";
   headerContainer.style.justifyContent = "space-between";
   headerContainer.style.alignItems = "center";
-  headerContainer.style.paddingBottom = "6px";
-  headerContainer.style.marginBottom = "8px";
+  headerContainer.style.paddingBottom = "4px";
+  headerContainer.style.marginBottom = "6px";
   headerContainer.style.borderBottom = "1px solid #374151";
   headerContainer.style.cursor = "grab";
   headerContainer.style.transition = "transform 0.1s ease";
@@ -145,6 +145,10 @@ function createPromptPanel() {
   refreshButton.style.borderRadius = "4px";
   refreshButton.style.transition = "all 0.2s ease";
   refreshButton.style.fontWeight = "400";
+  refreshButton.style.lineHeight = "1";
+  refreshButton.style.display = "flex";
+  refreshButton.style.alignItems = "center";
+  refreshButton.style.justifyContent = "center";
   
   refreshButton.onmouseover = () => {
     refreshButton.style.backgroundColor = "#ffffff";
@@ -163,16 +167,20 @@ function createPromptPanel() {
   
   // Create close button
   const closeButton = document.createElement("button");
-  closeButton.innerHTML = "×";
+  closeButton.innerHTML = "✕";
   closeButton.style.background = "transparent";
   closeButton.style.border = "1px solid #ffffff";
   closeButton.style.color = "#ffffff";
   closeButton.style.cursor = "pointer";
-  closeButton.style.fontSize = "16px";
-  closeButton.style.padding = "4px 8px";
+  closeButton.style.fontSize = "12px";
+  closeButton.style.padding = "5px 8px";
   closeButton.style.borderRadius = "4px";
   closeButton.style.transition = "all 0.2s ease";
-  closeButton.style.fontWeight = "400";
+  closeButton.style.fontWeight = "bold";
+  closeButton.style.lineHeight = "1";
+  closeButton.style.display = "flex";
+  closeButton.style.alignItems = "center";
+  closeButton.style.justifyContent = "center";
   
   closeButton.onmouseover = () => {
     closeButton.style.backgroundColor = "#ffffff";
@@ -192,7 +200,7 @@ function createPromptPanel() {
   
   // Create search bar
   const searchContainer = document.createElement("div");
-  searchContainer.style.marginBottom = "12px";
+  searchContainer.style.marginBottom = "8px";
   
   const searchInput = document.createElement("input");
   searchInput.type = "text";
@@ -259,41 +267,38 @@ function createPromptPanel() {
   div.style.color = "#ffffff";
   div.style.animation = "promptjump-fadein 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
 
-  // Create footer container
-  const footerContainer = document.createElement("div");
-  footerContainer.style.display = "flex";
-  footerContainer.style.justifyContent = "space-between";
-  footerContainer.style.alignItems = "center";
-  footerContainer.style.borderTop = "1px solid rgba(51, 65, 85, 0.3)";
-  footerContainer.style.paddingTop = "8px";
-  footerContainer.style.marginTop = "8px";
-  
-  // Made with text on left
-  const madeWithText = document.createElement("span");
-  madeWithText.innerHTML = "Made with ❤️";
-  madeWithText.style.fontSize = "11px";
-  madeWithText.style.color = "rgba(148, 163, 184, 0.8)";
-  madeWithText.style.fontWeight = "400";
-  
-  // Report issue link on right
-  const reportLink = document.createElement("a");
-  reportLink.href = "https://github.com/Mann275/ChatGPT__PromptJump/issues/new";
-  reportLink.target = "_blank";
-  reportLink.innerHTML = "Report an issue";
-  reportLink.style.fontSize = "11px";
-  reportLink.style.color = "#10a37f";
-  reportLink.style.textDecoration = "none";
-  reportLink.style.fontWeight = "400";
-  reportLink.onmouseover = () => reportLink.style.textDecoration = "underline";
-  reportLink.onmouseout = () => reportLink.style.textDecoration = "none";
-  
-  footerContainer.appendChild(madeWithText);
-  footerContainer.appendChild(reportLink);
+
   
   div.appendChild(headerContainer);
   div.appendChild(searchContainer);
   div.appendChild(contentWrapper);
-  div.appendChild(footerContainer);
+  
+  // Add footer content directly to content wrapper
+  const footerDiv = document.createElement("div");
+  footerDiv.style.display = "flex";
+  footerDiv.style.justifyContent = "space-between";
+  footerDiv.style.alignItems = "center";
+  footerDiv.style.borderTop = "1px solid rgba(51, 65, 85, 0.4)";
+  footerDiv.style.paddingTop = "6px";
+  footerDiv.style.marginTop = "6px";
+  footerDiv.style.fontSize = "10px";
+  
+  const madeWithSpan = document.createElement("span");
+  madeWithSpan.innerHTML = "Made with ❤️";
+  madeWithSpan.style.color = "rgba(148, 163, 184, 0.7)";
+  
+  const reportIssueLink = document.createElement("a");
+  reportIssueLink.href = "https://github.com/Mann275/ChatGPT__PromptJump/issues/new";
+  reportIssueLink.target = "_blank";
+  reportIssueLink.innerHTML = "Report an issue";
+  reportIssueLink.style.color = "#10a37f";
+  reportIssueLink.style.textDecoration = "none";
+  reportIssueLink.onmouseover = () => reportIssueLink.style.textDecoration = "underline";
+  reportIssueLink.onmouseout = () => reportIssueLink.style.textDecoration = "none";
+  
+  footerDiv.appendChild(madeWithSpan);
+  footerDiv.appendChild(reportIssueLink);
+  contentWrapper.appendChild(footerDiv);
   
   // Check if document.body exists before appending
   if (document.body) {
