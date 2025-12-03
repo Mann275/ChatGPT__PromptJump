@@ -84,19 +84,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     await chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    func: () => {
-      try {
-        // Trigger refresh of the prompt panel
-        const event = new CustomEvent('promptjump_refresh');
-        window.dispatchEvent(event);
-        
-        // Also try to update the prompt panel directly if it exists
-        if (window.__PROMPTJUMP_CORE_CONFIG && window.__PROMPTJUMP_CORE_CONFIG.updatePromptPanel) {
-          window.__PROMPTJUMP_CORE_CONFIG.updatePromptPanel(0);
+      target: { tabId: tab.id },
+      func: () => {
+        try {
+          // Trigger refresh of the prompt panel
+          const event = new CustomEvent('promptjump_refresh');
+          window.dispatchEvent(event);
+          
+          // Also try to update the prompt panel directly if it exists
+          if (window.__PROMPTJUMP_CORE_CONFIG && window.__PROMPTJUMP_CORE_CONFIG.updatePromptPanel) {
+            window.__PROMPTJUMP_CORE_CONFIG.updatePromptPanel(0);
+          }
+        } catch(error) {
+          console.log('PromptJump refresh error:', error);
         }
-      } catch(error) {
-        console.log('PromptJump refresh error:', error);
       }
     });
   } catch (error) {
