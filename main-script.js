@@ -28,8 +28,8 @@ function createNavButton() {
   button.classList.add("promptjump-toggle-btn");
   button.innerHTML = "💬";
   button.style.position = "fixed";
-  button.style.bottom = "20px";
-  button.style.right = "20px";
+  button.style.bottom = "30px";
+  button.style.right = "30px";
   button.style.padding = "10px 12px";
   button.style.backgroundColor = "rgba(11, 18, 32, 0.9)";
   button.style.color = "#e6eef3";
@@ -66,6 +66,9 @@ function createNavButton() {
     console.warn('PromptJump: document.body not ready for nav button');
   }
   
+  // Add hover tooltip
+  button.title = "Prompts";
+  
   // Make button draggable
   makeDraggable(button);
   
@@ -95,8 +98,17 @@ function createPromptPanel() {
   headerContainer.style.alignItems = "center";
   headerContainer.style.paddingBottom = "8px";
   headerContainer.style.marginBottom = "12px";
-  headerContainer.style.borderBottom = "1px solid rgba(255,255,255,0.1)";
+  headerContainer.style.borderBottom = "1px solid #374151";
   headerContainer.style.cursor = "move";
+  
+  // Add proper hand cursor for dragging
+  headerContainer.onmousedown = () => {
+    headerContainer.style.cursor = "grabbing";
+  };
+  
+  headerContainer.onmouseup = () => {
+    headerContainer.style.cursor = "move";
+  };
   
   // Create title
   const titleElement = document.createElement("h3");
@@ -114,24 +126,25 @@ function createPromptPanel() {
   
   // Create refresh button
   const refreshButton = document.createElement("button");
-  refreshButton.innerHTML = "🔄";
-  refreshButton.style.background = "rgba(138, 180, 255, 0.1)";
-  refreshButton.style.border = "1px solid rgba(138, 180, 255, 0.2)";
-  refreshButton.style.color = "#8ab4ff";
+  refreshButton.innerHTML = "Refresh";
+  refreshButton.style.background = "transparent";
+  refreshButton.style.border = "1px solid #ffffff";
+  refreshButton.style.color = "#ffffff";
   refreshButton.style.cursor = "pointer";
-  refreshButton.style.fontSize = "12px";
-  refreshButton.style.padding = "6px 8px";
-  refreshButton.style.borderRadius = "6px";
+  refreshButton.style.fontSize = "11px";
+  refreshButton.style.padding = "5px 10px";
+  refreshButton.style.borderRadius = "4px";
   refreshButton.style.transition = "all 0.2s ease";
+  refreshButton.style.fontWeight = "400";
   
   refreshButton.onmouseover = () => {
-    refreshButton.style.backgroundColor = "rgba(138, 180, 255, 0.2)";
-    refreshButton.style.transform = "scale(1.1)";
+    refreshButton.style.backgroundColor = "#ffffff";
+    refreshButton.style.color = "#000000";
   };
   
   refreshButton.onmouseout = () => {
-    refreshButton.style.backgroundColor = "rgba(138, 180, 255, 0.1)";
-    refreshButton.style.transform = "scale(1)";
+    refreshButton.style.backgroundColor = "transparent";
+    refreshButton.style.color = "#ffffff";
   };
   refreshButton.onclick = () => {
     if (window.__PROMPTJUMP_CORE_CONFIG && window.__PROMPTJUMP_CORE_CONFIG.updatePromptPanel) {
@@ -142,24 +155,24 @@ function createPromptPanel() {
   // Create close button
   const closeButton = document.createElement("button");
   closeButton.innerHTML = "×";
-  closeButton.style.background = "rgba(239, 68, 68, 0.1)";
-  closeButton.style.border = "1px solid rgba(239, 68, 68, 0.2)";
-  closeButton.style.color = "#ef4444";
+  closeButton.style.background = "transparent";
+  closeButton.style.border = "1px solid #ffffff";
+  closeButton.style.color = "#ffffff";
   closeButton.style.cursor = "pointer";
-  closeButton.style.fontSize = "14px";
-  closeButton.style.padding = "6px 8px";
-  closeButton.style.borderRadius = "6px";
+  closeButton.style.fontSize = "16px";
+  closeButton.style.padding = "4px 8px";
+  closeButton.style.borderRadius = "4px";
   closeButton.style.transition = "all 0.2s ease";
-  closeButton.style.fontWeight = "600";
+  closeButton.style.fontWeight = "400";
   
   closeButton.onmouseover = () => {
-    closeButton.style.backgroundColor = "rgba(239, 68, 68, 0.2)";
-    closeButton.style.transform = "scale(1.1)";
+    closeButton.style.backgroundColor = "#ffffff";
+    closeButton.style.color = "#000000";
   };
   
   closeButton.onmouseout = () => {
-    closeButton.style.backgroundColor = "rgba(239, 68, 68, 0.1)";
-    closeButton.style.transform = "scale(1)";
+    closeButton.style.backgroundColor = "transparent";
+    closeButton.style.color = "#ffffff";
   };
   closeButton.onclick = togglePromptPanel;
   
@@ -176,26 +189,26 @@ function createPromptPanel() {
   searchInput.type = "text";
   searchInput.placeholder = "Search prompts...";
   searchInput.style.width = "100%";
-  searchInput.style.padding = "12px 16px";
-  searchInput.style.border = "1px solid #4a5568";
-  searchInput.style.borderRadius = "8px";
-  searchInput.style.backgroundColor = "#1a202c";
-  searchInput.style.color = "#e2e8f0";
-  searchInput.style.fontSize = "14px";
+  searchInput.style.padding = "8px 12px";
+  searchInput.style.border = "1px solid #374151";
+  searchInput.style.borderRadius = "6px";
+  searchInput.style.backgroundColor = "#111827";
+  searchInput.style.color = "#ffffff";
+  searchInput.style.fontSize = "13px";
   searchInput.style.outline = "none";
   searchInput.style.boxSizing = "border-box";
   searchInput.style.transition = "all 0.2s ease";
   searchInput.style.fontFamily = "inherit";
   
   searchInput.onfocus = () => {
-    searchInput.style.borderColor = "#10a37f";
-    searchInput.style.backgroundColor = "#1a202c";
-    searchInput.style.boxShadow = "0 0 0 2px rgba(16, 163, 127, 0.2)";
+    searchInput.style.borderColor = "#60a5fa";
+    searchInput.style.backgroundColor = "#111827";
+    searchInput.style.boxShadow = "0 0 0 2px rgba(96, 165, 250, 0.2)";
   };
   
   searchInput.onblur = () => {
-    searchInput.style.borderColor = "#4a5568";
-    searchInput.style.backgroundColor = "#1a202c";
+    searchInput.style.borderColor = "#374151";
+    searchInput.style.backgroundColor = "#111827";
     searchInput.style.boxShadow = "none";
   };
   
@@ -204,31 +217,36 @@ function createPromptPanel() {
   // Create content wrapper
   const contentWrapper = document.createElement("div");
   contentWrapper.classList.add("content-wrapper");
-  contentWrapper.style.maxHeight = "350px";
+  contentWrapper.style.height = "280px";
   contentWrapper.style.overflowY = "auto";
-  contentWrapper.style.scrollbarWidth = "thin";
-  contentWrapper.innerHTML = '<div style="margin: 0 0 12px 0; color: #9ca3af; font-size: 13px; text-align: center; padding: 20px 0;">Jump to saved prompts for this chat</div>';
+  contentWrapper.style.overflowX = "hidden";
+  contentWrapper.style.background = "rgba(17, 24, 39, 0.6)";
+  contentWrapper.style.border = "1px solid #374151";
+  contentWrapper.style.borderRadius = "6px";
+  contentWrapper.style.padding = "8px";
+  contentWrapper.style.margin = "8px 0";
+  contentWrapper.innerHTML = '<div style="margin: 0 0 8px 0; color: #9ca3af; font-size: 13px; text-align: center; padding: 15px 0;">Jump to saved prompts for this chat</div>';
   
-  // add a style to the div - ChatGPT modern design
+  // Panel styling to match image
   div.style.position = "fixed";
   div.style.top = "20px";
   div.style.right = "20px";
   div.style.transform = "none";
-  div.style.backgroundColor = "#2d3748";
+  div.style.backgroundColor = "#1f2937";
   div.style.backdropFilter = "blur(20px)";
   div.style.webkitBackdropFilter = "blur(20px)";
   div.style.padding = "16px";
   div.style.zIndex = "10000";
-  div.style.border = "1px solid #4a5568";
-  div.style.borderRadius = "12px";
-  div.style.boxShadow = "0 4px 16px rgba(0,0,0,0.24)";
-  div.style.maxWidth = "320px";
-  div.style.minWidth = "320px";
-  div.style.maxHeight = "500px";
+  div.style.border = "1px solid #374151";
+  div.style.borderRadius = "8px";
+  div.style.boxShadow = "0 4px 20px rgba(0,0,0,0.3)";
+  div.style.maxWidth = "360px";
+  div.style.minWidth = "360px";
+  div.style.maxHeight = "420px";
   div.style.fontSize = "14px";
-  div.style.fontFamily = "'Söhne', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', sans-serif";
+  div.style.fontFamily = "'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
   div.style.display = "none";
-  div.style.color = "#d1d5db";
+  div.style.color = "#ffffff";
   div.style.animation = "promptjump-fadein 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
 
   // Create footer container
