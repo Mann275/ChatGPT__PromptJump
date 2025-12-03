@@ -2,7 +2,7 @@
   "name": "ChatGPT PromptJump",
   "version": "1.0.0",
   "manifest_version": 3,
-  "description": "PromptJump — jump to saved prompts in active chat sessions on ChatGPT.",
+  "description": "PromptJump — jump to your prompts in active chat sessions on ChatGPT.",
   "icons": {
     "16": "icons/logo-16.png",
     "48": "icons/logo-48.png",
