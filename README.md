@@ -17,7 +17,7 @@ PromptJump is a lightweight Chrome extension that helps you quickly navigate thr
 
 1. **Install the Extension** - Load it in Chrome Developer Mode
 2. **Visit ChatGPT** - Navigate to chatgpt.com  
-3. **Click the 💬 Button** - Located at bottom-right corner of the page
+3. **Click the 💬 Button** - Located at right corner of the page
 4. **Browse Your Prompts** - Use the floating panel to jump between messages
 5. **Search & Navigate** - Use search bar to quickly find specific prompts
 
