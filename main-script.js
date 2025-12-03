@@ -119,9 +119,9 @@ function createPromptPanel() {
     }
   };
   
-  // Create title with Made with text integrated
+  // Create title
   const titleElement = document.createElement("h3");
-  titleElement.innerHTML = "PromptJump <span style='font-size: 10px; color: rgba(148, 163, 184, 0.6); font-weight: 400;'>• Made with ❤️</span>";
+  titleElement.innerHTML = "Prompts";
   titleElement.style.margin = "0";
   titleElement.style.fontSize = "16px";
   titleElement.style.fontWeight = "600";
@@ -242,9 +242,9 @@ function createPromptPanel() {
   div.style.top = "20px";
   div.style.right = "20px";
   div.style.transform = "none";
-  div.style.backgroundColor = "rgba(15, 23, 42, 0.7)";
-  div.style.backdropFilter = "blur(25px)";
-  div.style.webkitBackdropFilter = "blur(25px)";
+  div.style.backgroundColor = "rgba(15, 23, 42, 0.5)";
+  div.style.backdropFilter = "blur(30px)";
+  div.style.webkitBackdropFilter = "blur(30px)";
   div.style.padding = "14px";
   div.style.zIndex = "10000";
   div.style.border = "1px solid rgba(51, 65, 85, 0.5)";
@@ -259,11 +259,41 @@ function createPromptPanel() {
   div.style.color = "#ffffff";
   div.style.animation = "promptjump-fadein 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
 
-
+  // Create footer container
+  const footerContainer = document.createElement("div");
+  footerContainer.style.display = "flex";
+  footerContainer.style.justifyContent = "space-between";
+  footerContainer.style.alignItems = "center";
+  footerContainer.style.borderTop = "1px solid rgba(51, 65, 85, 0.3)";
+  footerContainer.style.paddingTop = "8px";
+  footerContainer.style.marginTop = "8px";
+  
+  // Made with text on left
+  const madeWithText = document.createElement("span");
+  madeWithText.innerHTML = "Made with ❤️";
+  madeWithText.style.fontSize = "11px";
+  madeWithText.style.color = "rgba(148, 163, 184, 0.8)";
+  madeWithText.style.fontWeight = "400";
+  
+  // Report issue link on right
+  const reportLink = document.createElement("a");
+  reportLink.href = "https://github.com/Mann275/ChatGPT__PromptJump/issues/new";
+  reportLink.target = "_blank";
+  reportLink.innerHTML = "Report an issue";
+  reportLink.style.fontSize = "11px";
+  reportLink.style.color = "#10a37f";
+  reportLink.style.textDecoration = "none";
+  reportLink.style.fontWeight = "400";
+  reportLink.onmouseover = () => reportLink.style.textDecoration = "underline";
+  reportLink.onmouseout = () => reportLink.style.textDecoration = "none";
+  
+  footerContainer.appendChild(madeWithText);
+  footerContainer.appendChild(reportLink);
   
   div.appendChild(headerContainer);
   div.appendChild(searchContainer);
   div.appendChild(contentWrapper);
+  div.appendChild(footerContainer);
   
   // Check if document.body exists before appending
   if (document.body) {
