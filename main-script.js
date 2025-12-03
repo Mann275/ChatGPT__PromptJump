@@ -160,9 +160,24 @@ function createPromptPanel() {
     refreshButton.style.color = "#ffffff";
   };
   refreshButton.onclick = () => {
+    // Clear existing data and refresh
+    window.__PROMPTJUMP_USER_MSGS = {};
+    window.__PROMPTJUMP_RESPONSE_DATA = {};
+    window.__PROMPTJUMP_REQUEST_QUEUE = [];
+    
+    // Update the panel with fresh data
     if (window.__PROMPTJUMP_CORE_CONFIG && window.__PROMPTJUMP_CORE_CONFIG.updatePromptPanel) {
       window.__PROMPTJUMP_CORE_CONFIG.updatePromptPanel(0);
     }
+    
+    // Visual feedback
+    const originalText = refreshButton.innerHTML;
+    refreshButton.innerHTML = "✓";
+    refreshButton.style.color = "#10b981";
+    setTimeout(() => {
+      refreshButton.innerHTML = originalText;
+      refreshButton.style.color = "#ffffff";
+    }, 1000);
   };
   
   // Create close button
