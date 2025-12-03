@@ -275,29 +275,19 @@ function createPromptPanel() {
   
   // Add footer content directly to content wrapper
   const footerDiv = document.createElement("div");
-  footerDiv.style.display = "flex";
-  footerDiv.style.justifyContent = "space-between";
-  footerDiv.style.alignItems = "center";
+  footerDiv.style.textAlign = "center";
   footerDiv.style.borderTop = "1px solid rgba(51, 65, 85, 0.4)";
   footerDiv.style.paddingTop = "6px";
   footerDiv.style.marginTop = "6px";
   footerDiv.style.fontSize = "10px";
+  footerDiv.style.margin = "6px 0 0 0";
+  footerDiv.style.padding = "6px 0 0 0";
   
   const madeWithSpan = document.createElement("span");
   madeWithSpan.innerHTML = "Made with ❤️";
   madeWithSpan.style.color = "rgba(148, 163, 184, 0.7)";
   
-  const reportIssueLink = document.createElement("a");
-  reportIssueLink.href = "https://github.com/Mann275/ChatGPT__PromptJump/issues/new";
-  reportIssueLink.target = "_blank";
-  reportIssueLink.innerHTML = "Report an issue";
-  reportIssueLink.style.color = "#10a37f";
-  reportIssueLink.style.textDecoration = "none";
-  reportIssueLink.onmouseover = () => reportIssueLink.style.textDecoration = "underline";
-  reportIssueLink.onmouseout = () => reportIssueLink.style.textDecoration = "none";
-  
   footerDiv.appendChild(madeWithSpan);
-  footerDiv.appendChild(reportIssueLink);
   contentWrapper.appendChild(footerDiv);
   
   // Check if document.body exists before appending
