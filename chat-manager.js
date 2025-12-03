@@ -3,7 +3,7 @@ window.__PROMPTJUMP_RESPONSE_DATA = {};
 window.__PROMPTJUMP_REQUEST_QUEUE = [];
 window.__PROMPTJUMP_USER_MSGS = {};
 window.__PROMPTJUMP_CORE_CONFIG = {
-  apiPattern: /^https:\/\/(chatgpt\.com\/backend-api|gemini\.google\.com\/_\/BardChatUi)(?:\/[^\/]*)?\/(conversation|chat)(?:\/[0-9a-f-]+)?$/,
+  apiPattern: /^https:\/\/chatgpt\.com\/backend-api(?:\/[^\/]*)?\/(conversation|chat)(?:\/[0-9a-f-]+)?$/,
   shouldLogRequest: function(url) {
     console.log(url, this.apiPattern.test(url))
 

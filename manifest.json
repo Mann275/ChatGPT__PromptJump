@@ -14,8 +14,7 @@
     "tabs"
   ],
   "host_permissions": [
-    "https://chatgpt.com/*",
-    "https://gemini.google.com/*"
+    "https://chatgpt.com/*"
   ],
   "web_accessible_resources": [
     {
@@ -25,16 +24,14 @@
         "api-tracker.js"
       ],
       "matches": [
-        "https://chatgpt.com/*",
-        "https://gemini.google.com/*"
+        "https://chatgpt.com/*"
       ]
     }
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://chatgpt.com/*",
-        "https://gemini.google.com/*"
+        "https://chatgpt.com/*"
       ],
       "js": ["main-script.js"],
       "run_at": "document_start"

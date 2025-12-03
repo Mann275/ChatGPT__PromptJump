@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!tab) return;
     
     // Check if tab is on supported site
-    const isSupportedSite = tab.url && (tab.url.includes('chatgpt.com') || tab.url.includes('gemini.google.com'));
+    const isSupportedSite = tab.url && tab.url.includes('chatgpt.com');
     
     if (!isSupportedSite) {
       // Open ChatGPT if not on supported site
@@ -76,10 +76,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     if (!tab) return;
     
-    const isSupportedSite = tab.url && (tab.url.includes('chatgpt.com') || tab.url.includes('gemini.google.com'));
+    const isSupportedSite = tab.url && tab.url.includes('chatgpt.com');
     
     if (!isSupportedSite) {
-      alert('Please navigate to ChatGPT or Google Gemini to use this feature.');
+      alert('Please navigate to ChatGPT to use this feature.');
       return;
     }
     
