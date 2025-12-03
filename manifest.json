@@ -1,27 +1,42 @@
 {
   "name": "ChatGPT PromptJump",
-  "version": "1.0",
+  "version": "1.0.0",
   "manifest_version": 3,
-  "description": "PromptJump — jump to saved prompts in active chat",
+  "description": "PromptJump — jump to saved prompts in active chat sessions on ChatGPT.",
   "icons": {
     "16": "icons/logo-16.png",
     "48": "icons/logo-48.png",
     "128": "icons/logo-128.png"
   },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "tabs"
+  ],
   "host_permissions": [
-    "https://chat.openai.com/*",
-    "https://chatgpt.com/*"
+    "https://chatgpt.com/*",
+    "https://gemini.google.com/*"
   ],
   "web_accessible_resources": [
     {
-      "resources": ["page_monitor.js","page_bridge.js"],
-      "matches": ["https://chat.openai.com/*","https://chatgpt.com/*"]
+      "resources": [
+        "chat-manager.js",
+        "xhr-tracker.js",
+        "api-tracker.js"
+      ],
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://gemini.google.com/*"
+      ]
     }
-  ],  
+  ],
   "content_scripts": [
     {
-      "matches": ["https://chat.openai.com/*","https://chatgpt.com/*"],
-      "js": ["content_script.js"],
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://gemini.google.com/*"
+      ],
+      "js": ["main-script.js"],
       "run_at": "document_start"
     }
   ],
@@ -31,8 +46,7 @@
       "48": "icons/logo-48.png",
       "128": "icons/logo-128.png"
     },
-    "default_title": "PromptJump",
+    "default_title": "ChatGPT PromptJump",
     "default_popup": "popup.html"
-  },
-  "permissions": ["storage"]
+  }
 }
