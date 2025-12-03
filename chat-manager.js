@@ -86,17 +86,20 @@ window.__PROMPTJUMP_CORE_CONFIG = {
           msgButton.style.webkitBoxOrient = 'vertical';
           msgButton.style.overflow = 'hidden';
           msgButton.style.textOverflow = 'ellipsis';
-          msgButton.style.background = 'rgba(37, 99, 235, 0.05)';
-          msgButton.style.color = '#374151';
+          msgButton.style.background = 'rgba(138, 180, 255, 0.08)';
+          msgButton.style.color = '#e6eef3';
+          msgButton.style.border = '1px solid rgba(138, 180, 255, 0.15)';
           msgButton.style.marginBottom = '6px';
           msgButton.style.transition = 'all 0.2s ease';
           msgButton.onmouseover = () => {
-            msgButton.style.backgroundColor = 'rgba(37, 99, 235, 0.1)';
-            msgButton.style.borderColor = '#2563eb';
+            msgButton.style.backgroundColor = 'rgba(138, 180, 255, 0.15)';
+            msgButton.style.borderColor = 'rgba(138, 180, 255, 0.3)';
+            msgButton.style.transform = 'translateY(-1px)';
           };
           msgButton.onmouseout = () => {
-            msgButton.style.backgroundColor = 'rgba(37, 99, 235, 0.05)';
-            msgButton.style.borderColor = '#e5e7eb';
+            msgButton.style.backgroundColor = 'rgba(138, 180, 255, 0.08)';
+            msgButton.style.borderColor = 'rgba(138, 180, 255, 0.15)';
+            msgButton.style.transform = 'translateY(0)';
           };
           
           msgButton.onclick = () => this.jumpToMessage(id);
