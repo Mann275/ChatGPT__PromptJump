@@ -22,11 +22,17 @@ window.__PROMPTJUMP_CORE_CONFIG = {
     return window.__PROMPTJUMP_USER_MSGS;
   },
   processUserRequests: function() {
-    const requests = window.__PROMPTJUMP_REQUEST_QUEUE
+    const requests = window.__PROMPTJUMP_REQUEST_QUEUE || [];
     for(const request of requests) {
-      const messageId = request.messages[0].id;
-      const message = request.messages[0].content.parts[0];
-      window.__PROMPTJUMP_USER_MSGS[messageId] = message;
+      try {
+        if (request && request.messages && request.messages[0] && request.messages[0].content && request.messages[0].content.parts && request.messages[0].content.parts[0]) {
+          const messageId = request.messages[0].id;
+          const message = request.messages[0].content.parts[0];
+          window.__PROMPTJUMP_USER_MSGS[messageId] = message;
+        }
+      } catch (error) {
+        console.warn('PromptJump: Error processing request:', error);
+      }
     }
     return window.__PROMPTJUMP_USER_MSGS;
   },

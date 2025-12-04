@@ -457,6 +457,17 @@ window.addEventListener('promptjump_refresh', () => {
 document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     try {
+      // Ensure all required objects are initialized
+      if (!window.__PROMPTJUMP_USER_MSGS) {
+        window.__PROMPTJUMP_USER_MSGS = {};
+      }
+      if (!window.__PROMPTJUMP_RESPONSE_DATA) {
+        window.__PROMPTJUMP_RESPONSE_DATA = {};
+      }
+      if (!window.__PROMPTJUMP_REQUEST_QUEUE) {
+        window.__PROMPTJUMP_REQUEST_QUEUE = [];
+      }
+      
       createPromptPanel();
       createNavButton();
     } catch (error) {
