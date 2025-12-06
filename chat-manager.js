@@ -9,13 +9,70 @@ window.__PROMPTJUMP_CORE_CONFIG = {
 
     return this.apiPattern.test(url);
   },
+  formatMessageContent: function(content) {
+    // Handle different content types
+    if (typeof content === 'string') {
+      return content;
+    }
+    
+    if (typeof content === 'object' && content !== null) {
+      // Check if it's an array with mixed content (text + images)
+      if (Array.isArray(content)) {
+        let hasImage = false;
+        let textContent = '';
+        
+        content.forEach(item => {
+          if (typeof item === 'string') {
+            textContent += item + ' ';
+          } else if (typeof item === 'object' && item !== null) {
+            if (item.type === 'image_url' || item.image_url || item.type === 'image') {
+              hasImage = true;
+            } else if (item.type === 'text' && item.text) {
+              textContent += item.text + ' ';
+            }
+          }
+        });
+        
+        textContent = textContent.trim();
+        
+        if (hasImage && textContent) {
+          return `Image + Prompt: ${textContent}`;
+        } else if (hasImage) {
+          return 'Image uploaded';
+        } else if (textContent) {
+          return textContent;
+        }
+      }
+      
+      // Handle single object content
+      if (content.type === 'image_url' || content.image_url || content.type === 'image') {
+        return 'Image uploaded';
+      }
+      
+      if (content.type === 'text' && content.text) {
+        return content.text;
+      }
+      
+      // If it's an object but not recognized format, try to extract text
+      if (content.text) {
+        return content.text;
+      }
+      
+      // Fallback for unrecognized object format
+      return 'Mixed content (Image + Text)';
+    }
+    
+    // Fallback for other types
+    return String(content);
+  },
   extractUserMessages: function() {
     const mapping = window.__PROMPTJUMP_RESPONSE_DATA.mapping;
     if(!mapping) return {};
     for (const [id, node] of Object.entries(mapping)) {
       if (node.message && node.message.author && node.message.author.role === 'user') {
         if(node?.message?.content?.parts?.[0]) {
-          window.__PROMPTJUMP_USER_MSGS[id] = node.message.content.parts[0];
+          const rawContent = node.message.content.parts[0];
+          window.__PROMPTJUMP_USER_MSGS[id] = this.formatMessageContent(rawContent);
         }
       }
     }
@@ -27,8 +84,9 @@ window.__PROMPTJUMP_CORE_CONFIG = {
       try {
         if (request && request.messages && request.messages[0] && request.messages[0].content && request.messages[0].content.parts && request.messages[0].content.parts[0]) {
           const messageId = request.messages[0].id;
-          const message = request.messages[0].content.parts[0];
-          window.__PROMPTJUMP_USER_MSGS[messageId] = message;
+          const rawMessage = request.messages[0].content.parts[0];
+          const formattedMessage = this.formatMessageContent(rawMessage);
+          window.__PROMPTJUMP_USER_MSGS[messageId] = formattedMessage;
         }
       } catch (error) {
         console.warn('PromptJump: Error processing request:', error);
@@ -79,7 +137,9 @@ window.__PROMPTJUMP_CORE_CONFIG = {
           messageDiv.style.padding = '1px';
           
           const msgButton = document.createElement('button');
-          msgButton.innerHTML = `💬 ${message}`;
+          // Use different icons for different content types
+          const icon = message.includes('Image') ? '🖼️' : '💬';
+          msgButton.innerHTML = `${icon} ${message}`;
           msgButton.style.cursor = 'pointer';
           msgButton.style.border = '1px solid rgba(51, 65, 85, 0.5)';
           msgButton.style.padding = '8px 12px';
