@@ -259,7 +259,7 @@ function createPromptPanel() {
   contentWrapper.style.borderRadius = "6px";
   contentWrapper.style.padding = "6px";
   contentWrapper.style.margin = "0";
-  contentWrapper.innerHTML = '<div style="margin: 0 0 4px 0; color: #94a3b8; font-size: 13px; text-align: center; padding: 8px 0;">Jump to saved prompts for this chat</div><div style="margin: 0 0 8px 0; color: #fbbf24; font-size: 11px; text-align: center; padding: 4px 8px; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 4px;">⚠️ Prompts not showing? Try reloading the site</div>';
+  contentWrapper.innerHTML = '<div style="margin: 0 0 4px 0; color: #94a3b8; font-size: 13px; text-align: center; padding: 8px 0;">Jump to saved prompts for this chat</div><div style="margin: 0 0 8px 0; color: #fbbf24; font-size: 11px; text-align: center; padding: 4px 8px; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 4px;">⚠️ Prompts not showing? Try reloading the Page</div>';
 
   // Panel styling with more transparency and blur
   div.style.position = "fixed";
