@@ -143,80 +143,19 @@ function createPromptPanel() {
   titleElement.style.margin = "0";
   titleElement.style.fontSize = "16px";
   titleElement.style.fontWeight = "600";
-  titleElement.style.color = "#f7fafc";
+  titleElement.style.background =
+    "linear-gradient(90deg, #60a5fa, #a78bfa, #ec4899, #60a5fa)";
+  titleElement.style.backgroundSize = "200% 100%";
+  titleElement.style.webkitBackgroundClip = "text";
+  titleElement.style.webkitTextFillColor = "transparent";
+  titleElement.style.backgroundClip = "text";
+  titleElement.style.animation = "promptjump-gradient-shift 3s ease infinite";
 
   // Create buttons container
   const buttonsContainer = document.createElement("div");
   buttonsContainer.style.display = "flex";
   buttonsContainer.style.gap = "8px";
   buttonsContainer.style.alignItems = "center";
-
-  // Create refresh button
-  const refreshButton = document.createElement("button");
-  refreshButton.innerHTML = "Refresh";
-  refreshButton.style.background = "transparent";
-  refreshButton.style.border = "1px solid #ffffff";
-  refreshButton.style.color = "#ffffff";
-  refreshButton.style.cursor = "pointer";
-  refreshButton.style.fontSize = "11px";
-  refreshButton.style.padding = "5px 10px";
-  refreshButton.style.borderRadius = "4px";
-  refreshButton.style.transition = "all 0.2s ease";
-  refreshButton.style.fontWeight = "400";
-  refreshButton.style.lineHeight = "1";
-  refreshButton.style.display = "flex";
-  refreshButton.style.alignItems = "center";
-  refreshButton.style.justifyContent = "center";
-
-  refreshButton.onmouseover = () => {
-    refreshButton.style.backgroundColor = "#ffffff";
-    refreshButton.style.color = "#000000";
-  };
-
-  refreshButton.onmouseout = () => {
-    refreshButton.style.backgroundColor = "transparent";
-    refreshButton.style.color = "#ffffff";
-  };
-  refreshButton.onclick = () => {
-    // Show simple loading state
-    const originalText = refreshButton.innerHTML;
-    refreshButton.innerHTML = "...";
-    refreshButton.style.color = "#60a5fa";
-    refreshButton.disabled = true;
-
-    // Count old messages
-    const oldCount = Object.keys(window.__PROMPTJUMP_USER_MSGS || {}).length;
-
-    // Clear existing data and refresh
-    window.__PROMPTJUMP_USER_MSGS = {};
-    window.__PROMPTJUMP_RESPONSE_DATA = {};
-    window.__PROMPTJUMP_REQUEST_QUEUE = [];
-
-    // Update the panel with fresh data
-    setTimeout(() => {
-      if (
-        window.__PROMPTJUMP_CORE_CONFIG &&
-        window.__PROMPTJUMP_CORE_CONFIG.updatePromptPanel
-      ) {
-        window.__PROMPTJUMP_CORE_CONFIG.updatePromptPanel(0);
-      }
-
-      // Count new messages after refresh
-      const newCount = Object.keys(window.__PROMPTJUMP_USER_MSGS || {}).length;
-
-      // Show success with message count
-      refreshButton.innerHTML = `✓ ${newCount}`;
-      refreshButton.style.color = "#10b981";
-      refreshButton.style.fontWeight = "600";
-
-      setTimeout(() => {
-        refreshButton.innerHTML = originalText;
-        refreshButton.style.color = "#ffffff";
-        refreshButton.style.fontWeight = "400";
-        refreshButton.disabled = false;
-      }, 2000);
-    }, 500);
-  };
 
   // Create close button
   const closeButton = document.createElement("button");
@@ -246,7 +185,6 @@ function createPromptPanel() {
   };
   closeButton.onclick = togglePromptPanel;
 
-  buttonsContainer.appendChild(refreshButton);
   buttonsContainer.appendChild(closeButton);
   headerContainer.appendChild(titleElement);
   headerContainer.appendChild(buttonsContainer);
@@ -467,6 +405,12 @@ function injectStyles() {
         to {
           transform: rotate(360deg);
         }
+      }
+      
+      @keyframes promptjump-gradient-shift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
       }
       
       .promptjump-panel {
