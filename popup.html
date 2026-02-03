@@ -1,42 +1,193 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ChatGPT PromptJump</title>
-  <style>
-    body{margin:0;font-family:system-ui,sans-serif;width:300px;background:#2a2a2a;color:#fff}
-    .container{padding:15px;background:#333;border-radius:8px;margin:0;border:1px solid #444}
-    .title{font-size:16px;font-weight:normal;margin:0 0 8px;color:#fff;text-align:center}
-    .description{font-size:12px;color:#ccc;margin:0 0 15px;text-align:center}
-    .buttons{display:flex;gap:8px;margin-bottom:12px}
-    .btn{padding:8px 16px;border-radius:4px;font-size:12px;cursor:pointer;border:1px solid #555;text-align:center;flex:1;background:#444;color:#fff}
-    .btn:hover{background:#555}
-    .btn-primary{background:#0066cc;border-color:#0066cc}
-    .btn-primary:hover{background:#0052a3}
-    .footer{text-align:center;padding-top:8px;border-top:1px solid #444}
-    .bug-link{font-size:14px;color:#fff;text-decoration:none}
-    .bug-link:hover{color:#ddd}
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1 class="title">PromptJump</h1>
-    <p class="description">Jump to any prompt in ChatGPT conversations</p>
-    
-    <div style="margin: 0 0 12px 0; color: #fbbf24; font-size: 11px; text-align: center; padding: 6px 10px; background: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.4); border-radius: 4px;">
-      ⚠️ Prompts not showing? Try reloading the Page
-    </div>
-    
-    <div class="buttons">
-      <button id="open-panel" class="btn btn-primary">Open Panel</button>
-      <button id="refresh-storage" class="btn btn-secondary">Refresh</button>
-    </div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ChatGPT PromptJump</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    <div class="footer">
-      <a id="report-bug" class="bug-link" href="#">Report a bug 🐛</a>
+      body {
+        margin: 0;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", "SF Pro Display",
+          sans-serif;
+        width: 320px;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #f1f5f9;
+      }
+
+      .container {
+        padding: 18px;
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(20px);
+        margin: 0;
+        border: 1px solid rgba(51, 65, 85, 0.5);
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 16px;
+      }
+
+      .title {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 0 0 6px;
+        color: #fff;
+        letter-spacing: -0.5px;
+        background: linear-gradient(90deg, #60a5fa, #a78bfa, #ec4899, #60a5fa);
+        background-size: 200% 100%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradientShift 3s ease infinite;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .emoji {
+        font-size: 26px;
+        margin-bottom: 8px;
+        display: block;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
+      .description {
+        font-size: 12px;
+        color: #94a3b8;
+        margin: 0;
+        line-height: 1.5;
+      }
+
+      .warning-box {
+        margin: 0 0 14px 0;
+        color: #fbbf24;
+        font-size: 10.5px;
+        text-align: center;
+        padding: 9px 12px;
+        background: rgba(251, 191, 36, 0.08);
+        border: 1px solid rgba(251, 191, 36, 0.25);
+        border-radius: 8px;
+        line-height: 1.4;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 12px 18px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        text-align: center;
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        color: #fff;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+        margin-bottom: 14px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .btn:hover::before {
+        left: 100%;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .footer {
+        text-align: center;
+        padding-top: 14px;
+        border-top: 1px solid rgba(51, 65, 85, 0.4);
+      }
+
+      .bug-link {
+        font-size: 13px;
+        color: #94a3b8;
+        text-decoration: none;
+        transition: color 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .bug-link:hover {
+        color: #f1f5f9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <span class="emoji">💬</span>
+        <h1 class="title">PromptJump</h1>
+        <p class="description">
+          Jump to any prompt in your ChatGPT conversations
+        </p>
+      </div>
+
+      <div class="warning-box">
+        ⚠️ Prompts not showing? Try reloading the page
+      </div>
+
+      <button id="open-panel" class="btn">Open Prompt Panel</button>
+
+      <div class="footer">
+        <a id="report-bug" class="bug-link" href="#">
+          <span>Report a bug</span>
+          <span>🐛</span>
+        </a>
+      </div>
     </div>
-  </div>
-  <script src="popup.js"></script>
-</body>
+    <script src="popup.js"></script>
+  </body>
 </html>

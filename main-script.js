@@ -49,17 +49,16 @@ function createNavButton() {
   button.onmouseover = () => {
     button.style.backgroundColor = "rgba(138, 180, 255, 0.15)";
     button.style.borderColor = "rgba(138, 180, 255, 0.3)";
-    button.style.transform = "translateY(-2px) scale(1.05)";
+    button.style.transform = "translateY(-50%) translateX(-2px) scale(1.05)";
     button.style.boxShadow =
       "0 12px 32px rgba(0,0,0,0.5), 0 6px 12px rgba(138, 180, 255, 0.2)";
   };
   button.onmouseout = () => {
     button.style.backgroundColor = "rgba(11, 18, 32, 0.9)";
     button.style.borderColor = "rgba(255,255,255,0.15)";
-    button.style.transform = "translateY(0px) scale(1)";
+    button.style.transform = "translateY(-50%) scale(1)";
     button.style.boxShadow =
       "0 8px 24px rgba(0,0,0,0.4), 0 4px 8px rgba(0,0,0,0.2)";
-    button.style.transform = "translateY(0px)";
   };
   button.onclick = togglePromptPanel;
 
@@ -85,8 +84,23 @@ function togglePromptPanel() {
 
   if (promptPanel) {
     const isVisible = promptPanel.style.display !== "none";
-    promptPanel.style.display = isVisible ? "none" : "block";
-    toggleButton.style.display = isVisible ? "block" : "none";
+    if (isVisible) {
+      // Hide panel
+      promptPanel.style.opacity = "0";
+      setTimeout(() => {
+        promptPanel.style.display = "none";
+        promptPanel.style.visibility = "hidden";
+      }, 300);
+      toggleButton.style.display = "block";
+    } else {
+      // Show panel with proper positioning first
+      promptPanel.style.display = "block";
+      promptPanel.style.visibility = "visible";
+      // Force reflow to ensure position is set
+      void promptPanel.offsetHeight;
+      promptPanel.style.opacity = "1";
+      toggleButton.style.display = "none";
+    }
   }
 }
 
@@ -164,27 +178,44 @@ function createPromptPanel() {
     refreshButton.style.color = "#ffffff";
   };
   refreshButton.onclick = () => {
+    // Show simple loading state
+    const originalText = refreshButton.innerHTML;
+    refreshButton.innerHTML = "...";
+    refreshButton.style.color = "#60a5fa";
+    refreshButton.disabled = true;
+
+    // Count old messages
+    const oldCount = Object.keys(window.__PROMPTJUMP_USER_MSGS || {}).length;
+
     // Clear existing data and refresh
     window.__PROMPTJUMP_USER_MSGS = {};
     window.__PROMPTJUMP_RESPONSE_DATA = {};
     window.__PROMPTJUMP_REQUEST_QUEUE = [];
 
     // Update the panel with fresh data
-    if (
-      window.__PROMPTJUMP_CORE_CONFIG &&
-      window.__PROMPTJUMP_CORE_CONFIG.updatePromptPanel
-    ) {
-      window.__PROMPTJUMP_CORE_CONFIG.updatePromptPanel(0);
-    }
-
-    // Visual feedback
-    const originalText = refreshButton.innerHTML;
-    refreshButton.innerHTML = "✓";
-    refreshButton.style.color = "#10b981";
     setTimeout(() => {
-      refreshButton.innerHTML = originalText;
-      refreshButton.style.color = "#ffffff";
-    }, 1000);
+      if (
+        window.__PROMPTJUMP_CORE_CONFIG &&
+        window.__PROMPTJUMP_CORE_CONFIG.updatePromptPanel
+      ) {
+        window.__PROMPTJUMP_CORE_CONFIG.updatePromptPanel(0);
+      }
+
+      // Count new messages after refresh
+      const newCount = Object.keys(window.__PROMPTJUMP_USER_MSGS || {}).length;
+
+      // Show success with message count
+      refreshButton.innerHTML = `✓ ${newCount}`;
+      refreshButton.style.color = "#10b981";
+      refreshButton.style.fontWeight = "600";
+
+      setTimeout(() => {
+        refreshButton.innerHTML = originalText;
+        refreshButton.style.color = "#ffffff";
+        refreshButton.style.fontWeight = "400";
+        refreshButton.disabled = false;
+      }, 2000);
+    }, 500);
   };
 
   // Create close button
@@ -287,9 +318,11 @@ function createPromptPanel() {
   div.style.fontSize = "14px";
   div.style.fontFamily =
     "'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+  div.style.visibility = "hidden";
   div.style.display = "none";
   div.style.color = "#ffffff";
-  div.style.animation = "promptjump-fadein 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
+  div.style.opacity = "0";
+  div.style.transition = "opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
 
   div.appendChild(headerContainer);
   div.appendChild(searchContainer);
@@ -325,10 +358,12 @@ function createPromptPanel() {
   // Add search functionality - use event delegation since messages are added dynamically
   searchInput.addEventListener("input", function () {
     const searchTerm = this.value.trim().toLowerCase();
-    
+
     // Query for message items using the class we added
-    const messageItems = contentWrapper.querySelectorAll(".prompt-message-item");
-    
+    const messageItems = contentWrapper.querySelectorAll(
+      ".prompt-message-item",
+    );
+
     if (!searchTerm) {
       // Show all messages if search is empty
       messageItems.forEach((item) => {
@@ -336,7 +371,7 @@ function createPromptPanel() {
       });
       return;
     }
-    
+
     // Filter messages
     messageItems.forEach((item) => {
       const msgButton = item.querySelector("button");
@@ -422,6 +457,15 @@ function injectStyles() {
         to {
           opacity: 1;
           transform: translateY(0);
+        }
+      }
+      
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
         }
       }
       
